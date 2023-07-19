@@ -3,6 +3,9 @@ from src.assistant_vocal import listen_speecher, reconnaissance_vocale
 import requests
 import json
 
+from conf.config import API_YOUTUBE
+api_key = API_YOUTUBE
+
 def search_bar():
     while True:
         read_prompt("Veuillez renseigner la video que vous voulez lire")
@@ -23,7 +26,6 @@ def search_bar():
 
 def youtube_request(prompt):
     url = "https://www.googleapis.com/youtube/v3/search"
-    api_key = ''
     
     params = {
         'part': 'snippet',
@@ -46,8 +48,11 @@ def youtube_request(prompt):
 
 
 def play_video(video_id, prompt):
+    #Pas de lecture, elle donne juste l'url
+    #Pour lire utiliser Pytube + python-vlc
     if video_id:
         url =f'https://www.youtube.com/watch?v={video_id}'
+        #Import webbrowser
         print(f"Vou écoutez: {prompt}")
     else:
         print("Aucune video trouvée pour cette recherche")
